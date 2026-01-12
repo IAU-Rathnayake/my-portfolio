@@ -355,7 +355,7 @@ console.log('Portfolio website initialized successfully!');
 // WhatsApp Contact Functionality
 function initWhatsAppContact() {
   // Your WhatsApp number
-  const whatsappNumber = "+94764638787";
+  const whatsappNumber = "+94764102001";
   
   // Default message
   const defaultMessage = "Hi Imesh, I saw your portfolio and would like to connect!";

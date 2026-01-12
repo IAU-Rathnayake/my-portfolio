@@ -1322,12 +1322,16 @@ code {
   border-radius: 16px;
   width: 90%;
   max-width: 450px;
-  margin: 50px auto;
+  max-height: 85vh; /* Added: Limit maximum height */
+  margin: auto; /* Changed: Center vertically */
   padding: 30px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   transform: translateY(-20px);
   opacity: 0;
   transition: all 0.3s ease;
+  overflow: hidden; /* Added: Contain content */
+  display: flex;
+  flex-direction: column;
 }
 
 .whatsapp-modal.active .whatsapp-modal-overlay {
@@ -1351,6 +1355,7 @@ code {
   padding: 8px;
   border-radius: 50%;
   transition: background 0.2s;
+  z-index: 1; /* Added: Ensure close button is above content */
 }
 
 .whatsapp-close:hover {
@@ -1359,82 +1364,109 @@ code {
 
 .whatsapp-modal-header {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 15px; /* Reduced margin */
+  flex-shrink: 0; /* Prevent header from shrinking */
 }
 
 .whatsapp-modal-icon {
-  font-size: 3.5rem;
+  font-size: 3rem; /* Slightly reduced */
   color: #25D366;
-  margin-bottom: 15px;
+  margin-bottom: 10px; /* Reduced margin */
 }
 
 .whatsapp-modal-header h3 {
   margin: 0;
   color: #333;
-  font-size: 1.5rem;
+  font-size: 1.4rem; /* Slightly reduced */
   font-weight: 600;
 }
 
 .whatsapp-modal-body {
-  margin-bottom: 30px;
+  flex: 1; /* Take available space */
+  overflow-y: auto; /* Enable scrolling if needed */
+  margin-bottom: 20px; /* Reduced margin */
+  padding-right: 5px; /* Space for scrollbar */
+}
+
+.whatsapp-modal-body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.whatsapp-modal-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.whatsapp-modal-body::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.whatsapp-modal-body::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .whatsapp-modal-body p {
   color: #666;
   margin-bottom: 15px;
   line-height: 1.6;
+  font-size: 0.95rem; /* Slightly reduced */
 }
 
 .whatsapp-number-display,
 .whatsapp-message-preview {
   background: #f8f9fa;
-  padding: 15px;
+  padding: 12px; /* Reduced padding */
   border-radius: 10px;
-  margin: 15px 0;
+  margin: 12px 0; /* Reduced margin */
   border-left: 4px solid #25D366;
 }
 
 .whatsapp-number-display strong,
 .whatsapp-message-preview strong {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 6px; /* Reduced margin */
   color: #333;
   font-weight: 500;
+  font-size: 0.9rem; /* Slightly reduced */
 }
 
 .whatsapp-number-display .number {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 1.2rem;
+  font-size: 1.1rem; /* Slightly reduced */
   color: #111;
   font-weight: 600;
+  word-break: break-all; /* Prevent overflow */
 }
 
 .whatsapp-message-preview .message {
   color: #444;
   font-style: italic;
-  line-height: 1.5;
+  line-height: 1.4; /* Reduced line height */
+  word-break: break-word; /* Prevent text overflow */
 }
 
 .whatsapp-note {
-  font-size: 0.9rem;
+  font-size: 0.85rem; /* Slightly reduced */
   color: #888;
-  margin-top: 20px !important;
+  margin-top: 15px !important;
 }
 
 .whatsapp-modal-actions {
   display: flex;
   gap: 12px;
-  margin-top: 25px;
+  margin-top: 20px; /* Reduced margin */
+  flex-shrink: 0; /* Prevent buttons from shrinking */
 }
 
 .modal-btn {
   flex: 1;
-  padding: 14px 20px;
+  padding: 12px 18px; /* Slightly reduced padding */
   border: none;
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.95rem; /* Slightly reduced */
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
@@ -1555,11 +1587,87 @@ code {
   .whatsapp-modal-content {
     width: 95%;
     padding: 20px;
-    margin: 20px auto;
+    max-height: 90vh; /* Allow more height on mobile */
   }
   
   .whatsapp-modal-actions {
     flex-direction: column;
+  }
+  
+  .modal-btn {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .whatsapp-modal-icon {
+    font-size: 2.5rem;
+  }
+  
+  .whatsapp-modal-header h3 {
+    font-size: 1.2rem;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .whatsapp-modal-content {
+    padding: 15px;
+  }
+  
+  .whatsapp-modal-icon {
+    font-size: 2rem;
+  }
+  
+  .whatsapp-modal-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .whatsapp-number-display .number {
+    font-size: 1rem;
+  }
+  
+  .whatsapp-button {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+}
+
+/* Very short screens (height adjustment) */
+@media (max-height: 600px) {
+  .whatsapp-modal-content {
+    max-height: 95vh;
+    margin: 10px auto;
+  }
+  
+  .whatsapp-modal-body {
+    max-height: 60vh; /* Limit body height */
+    overflow-y: auto;
+  }
+  
+  .whatsapp-modal-header {
+    margin-bottom: 10px;
+  }
+  
+  .whatsapp-number-display,
+  .whatsapp-message-preview {
+    padding: 10px;
+    margin: 8px 0;
+  }
+}
+
+/* Ultra short screens */
+@media (max-height: 500px) {
+  .whatsapp-modal-content {
+    max-height: 85vh;
+  }
+  
+  .whatsapp-modal-body {
+    max-height: 50vh;
+  }
+  
+  .whatsapp-modal-actions {
+    margin-top: 15px;
   }
 }
 /* Profile Picture Styles */
